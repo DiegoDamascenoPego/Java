@@ -24,35 +24,38 @@ import com.liveworking.api.clientes.service.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClientesResource extends CrudResource<Cliente> {
+public class ClientesResource {
 
 	@Autowired
 	ClienteService service;
 
+	@Autowired
+	ICrudSource<Cliente> source;
+
 	@GetMapping
 	public ResponseEntity<List<Cliente>> Listar() {
-		return super.listar(service);
+		return source.listar(service);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> buscar(@PathVariable long id) {
-		return super.buscar(id, service);
+		return source.buscar(id, service);
 	}
 
 	@PostMapping
 	public ResponseEntity<Cliente> cadastrar(@Valid @RequestBody Cliente cliente, HttpServletResponse response) {
-		return super.cadastrar(cliente, response, service);
+		return source.cadastrar(cliente, response, service);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cliente> atualizar(@PathVariable long id, @Valid @RequestBody Cliente cliente) {
-		return super.atualizar(id, cliente, service);
+		return source.atualizar(id, cliente, service);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> apagar(@PathVariable long id) {
-		return super.apagar(id, service);
+		return source.apagar(id, service);
 	}
 
 	@PutMapping("/{id}/descontos")
