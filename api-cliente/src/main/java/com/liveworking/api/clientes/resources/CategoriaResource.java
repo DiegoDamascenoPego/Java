@@ -21,35 +21,38 @@ import com.liveworking.api.clientes.service.CategoriaService;
 
 @RestController
 @RequestMapping("/clientes/categorias")
-public class CategoriaResource extends CrudResource<Categoria> {
+public class CategoriaResource{
 
 	@Autowired
 	private CategoriaService service;
+	
+	@Autowired
+	private ICrudSource<Categoria> source;
 
 
 	@GetMapping
 	public ResponseEntity<List<Categoria>> listar() {
-		return super.listar(service);
+		return source.listar(service);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Categoria> buscar(@PathVariable Long id) {
-		return super.buscar(id, service);
+		return source.buscar(id, service);
 	}
 
 	@PostMapping
 	public ResponseEntity<Categoria> cadastrar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-		return super.cadastrar(categoria, response, service);
+		return source.cadastrar(categoria, response, service);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Categoria> atualizar(@PathVariable long id, @Valid @RequestBody Categoria categoria) {
-		return super.atualizar(id, categoria, service);
+		return source.atualizar(id, categoria, service);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> apagar(@PathVariable long id) {
-		return super.apagar(id, service);
+		return source.apagar(id, service);
 	}
 
 }
