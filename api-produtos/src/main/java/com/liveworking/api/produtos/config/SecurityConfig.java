@@ -1,4 +1,4 @@
-package com.liveworking.api.produtos;
+package com.liveworking.api.produtos.config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
