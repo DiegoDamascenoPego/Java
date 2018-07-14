@@ -1,6 +1,5 @@
 package com.liveworking.api.produtos.token;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,19 +41,14 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
 	}
 
 	private void adicionarRefreshTokenNoCookie(String value, HttpServletRequest req, HttpServletResponse resp) {
-		Cookie refreshTokenCookie = new Cookie("refreshToken", value);
-
-		refreshTokenCookie.setHttpOnly(true);
-		refreshTokenCookie.setSecure(false);
-		refreshTokenCookie.setPath(req.getContextPath() + "/oauth/token");
-		refreshTokenCookie.setMaxAge(2592000);
-		resp.addCookie(refreshTokenCookie);
+		
+		resp.addCookie(TokenUtils.NewCookie("refreshToken", value, req.getContextPath(), 2592000));
 
 	}
 
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-
+		
 		return returnType.getMethod().getName().equals("postAccessToken");
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liveworking.api.produtos.model.Produto;
+import com.liveworking.api.produtos.model.dto.ResumoProdutos;
 import com.liveworking.api.produtos.repository.filter.ProdutoFilter;
 import com.liveworking.api.produtos.service.ProdutoService;
 
@@ -46,6 +47,11 @@ public class ProdutoResource {
 	@GetMapping("/principio")
 	public Page<Produto> buscarPorPrincipio(ProdutoFilter produtoFilter, Pageable pageable) {
 		return service.buscarPorPrincipio(produtoFilter, pageable);
+	}
+	
+	@GetMapping(params="resumo", path="/principio")
+	public Page<ResumoProdutos> buscarResumoPorPrincipio(ProdutoFilter produtoFilter, Pageable pageable) {
+		return service.buscarResumoPorPrincipio(produtoFilter, pageable);
 	}
 
 	@PostMapping

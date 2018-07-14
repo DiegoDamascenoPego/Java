@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.liveworking.api.produtos.model.Produto;
+import com.liveworking.api.produtos.model.dto.ResumoProdutos;
 import com.liveworking.api.produtos.repository.filter.ProdutoFilter;
 
 public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery {
@@ -43,7 +44,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery {
 		return new PageImpl<>(query.getResultList(), pageable, TotalRegistros(produtoFilter));
 	}
 
-	private void adicionarPaginacao(TypedQuery<Produto> query, Pageable pageable) {
+	private void adicionarPaginacao(TypedQuery<?> query, Pageable pageable) {
 		int paginaAtual = pageable.getPageNumber();
 		int totalRegistroporPaginas = pageable.getPageSize();
 		int primeiroRegistro = paginaAtual * totalRegistroporPaginas;
@@ -90,6 +91,40 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery {
 
 		return manager.createQuery(criteriaQuery).getSingleResult();
 
+	}
+
+	@Override
+	public Page<ResumoProdutos> buscarProdutoPorPrincipio(ProdutoFilter produtoFilter, Pageable pageable) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+
+		CriteriaQuery<ResumoProdutos> criteria = builder.createQuery(ResumoProdutos.class);
+		
+		Root<Produto> root = criteria.from(Produto.class);
+		
+		criteria.select(builder.construct(ResumoProdutos.class, 
+				root.get("nome"),
+				root.get("ean"),
+				root.get("ms"),
+				root.get("principio"),
+				root.get("apresentacao"),
+				root.get("tipoMed"),
+				root.get("tarja"),
+				root.get("listaPisCofins"),
+				root.get("fabricante").get("nome"),
+				root.get("classeTerapeutica").get("nome")));
+		
+
+		
+
+		Predicate[] predicates = criarFiltro(produtoFilter, builder, root);
+
+		criteria.where(predicates);
+
+		TypedQuery<ResumoProdutos> query = manager.createQuery(criteria);
+
+		adicionarPaginacao(query, pageable);
+
+		return new PageImpl<>(query.getResultList(), pageable, TotalRegistros(produtoFilter));
 	}
 
 }

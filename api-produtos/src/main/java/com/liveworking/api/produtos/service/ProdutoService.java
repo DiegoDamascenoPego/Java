@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.liveworking.api.produtos.model.Produto;
+import com.liveworking.api.produtos.model.dto.ResumoProdutos;
 import com.liveworking.api.produtos.repository.ProdutoRepository;
 import com.liveworking.api.produtos.repository.filter.ProdutoFilter;
 
@@ -43,6 +44,10 @@ public class ProdutoService implements CrudService<Produto> {
 	
 	public Page<Produto> buscarPorPrincipio(ProdutoFilter produtoFilter, Pageable pageable) {
 		return dao.buscarProdutoPorPrincipioAtivo(produtoFilter, pageable);
+	}
+	
+	public Page<ResumoProdutos> buscarResumoPorPrincipio(ProdutoFilter produtoFilter, Pageable pageable) {
+		return dao.buscarProdutoPorPrincipio(produtoFilter, pageable);
 	}
 
 	@Override
