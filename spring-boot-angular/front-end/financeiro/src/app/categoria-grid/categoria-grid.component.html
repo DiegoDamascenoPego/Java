@@ -1,0 +1,60 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i> Categorias
+    <button class="btn btn-sm btn-primary" style="float: right" (click)='nova()'>Novo</button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table table-bordered dataTable" id="dataTable" cellspacing="0" role="grid" aria-describedby="dataTable_info"
+            style="width: 100%;">
+            <thead>
+              <tr role="row">
+                <th rowspan="1" colspan="1" aria-sort="ascending">Nome</th>
+                <th rowspan="1" colspan="1">Descrição</th>
+                <th rowspan="1" colspan="1">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor='let categoria of categorias'>
+                <tr role="row" class="even">
+                  <td class="sorting_1">{{categoria.nome}}</td>
+                  <td>{{categoria.descricao}}</td>
+                  <td>
+                    <i style="cursor: pointer;" class="fas fa-edit"  (click)="editar(categoria);"></i>
+                  </td>
+                </tr>
+              </ng-container>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<!-- modal -->
+<div class="modal fade" id="modalNova" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <app-categoria-form [categoria]="categoriaSelecionada" (onSalvar)="onSalvarCategoria($event)" (onRemover)="onRemoverCategoria($event)"></app-categoria-form>
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

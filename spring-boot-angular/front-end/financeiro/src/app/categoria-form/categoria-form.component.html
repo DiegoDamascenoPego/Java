@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <label for="inputId">Código</label>
+        <input type="text" class="form-control" id="inputId"  formControlName="id" disabled>
+      </div>
+  <div class="form-group">
+    <label for="inputNome">Nome</label>
+    <input type="text" class="form-control" id="inputNome"  formControlName="nome">
+  </div>
+  <div class="form-group">
+    <label for="inputDescricao">Descricao</label>
+    <input type="text" class="form-control" id="inputDescricao" formControlName="descricao">
+  </div>
+
+  <button type="button" class="btn btn-sm btn-primary" style="float:left" (click)="salvar();">Salvar</button>
+  <button *ngIf="categoria && categoria.id" type="button" class="btn btn-sm btn-danger"  style="float:right"  (click)="confirmarRemover();">Remover</button>
+
+
+</form>
