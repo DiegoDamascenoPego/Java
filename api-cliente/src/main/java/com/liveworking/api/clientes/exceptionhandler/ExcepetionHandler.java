@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.FieldResult;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -66,7 +64,7 @@ public class ExcepetionHandler extends ResponseEntityExceptionHandler {
 
 		List<Errors> erros = Arrays
 				.asList(new Errors(messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale()),
-						ex.getCause()!= null ? ex.getCause().toString() :ex.toString()));
+						ex.getCause() != null ? ex.getCause().toString() : ex.toString()));
 
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
@@ -82,12 +80,13 @@ public class ExcepetionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ResponseEntity<Object> HandeEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
-		
-		List<Errors> erros = Arrays
-				.asList(new Errors(messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale()),
+	public ResponseEntity<Object> HandeEmptyResultDataAccessException(EmptyResultDataAccessException ex,
+			WebRequest request) {
+
+		List<Errors> erros = Arrays.asList(
+				new Errors(messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale()),
 						ex.toString()));
-		
+
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 

@@ -38,7 +38,7 @@ public class ClientesResource {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscar(@PathVariable long id) {
+	public ResponseEntity<Cliente> buscar(@PathVariable Long id) {
 		return source.buscar(id, service);
 	}
 
@@ -48,18 +48,18 @@ public class ClientesResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@PathVariable long id, @Valid @RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
 		return source.atualizar(id, cliente, service);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> apagar(@PathVariable long id) {
+	public ResponseEntity<Void> apagar(@PathVariable Long id) {
 		return source.apagar(id, service);
 	}
 
 	@PutMapping("/{id}/descontos")
-	public ResponseEntity<Cliente> atualizarDescontos(@PathVariable long id, @Valid @RequestBody Descontos descontos) {
+	public ResponseEntity<Cliente> atualizarDescontos(@PathVariable Long id, @Valid @RequestBody Descontos descontos) {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.atualizarDescontos(id, descontos));
 	}
 

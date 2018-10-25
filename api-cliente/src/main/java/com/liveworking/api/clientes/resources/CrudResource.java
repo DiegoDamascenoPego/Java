@@ -19,6 +19,9 @@ public class CrudResource<T> implements ICrudSource<T> {
 
 	@Autowired
 	ResourcesUtils<T> resourcesUtils;
+	
+
+	
 
 	public ResponseEntity<T> buscar(@PathVariable long id, ICrudService<T> service) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.localizar(id));

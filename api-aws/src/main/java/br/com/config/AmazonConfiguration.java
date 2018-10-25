@@ -11,9 +11,9 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AmazonConfiguration {
 
-	private static final String ACCESS_KEY="xxxxxxxxxxxxx";
+	private static final String ACCESS_KEY="xxxxxx";
 
-    private static final String SECRET_KEY="xxxxxxxxxxx";
+    private static final String SECRET_KEY="XXXXXXXXXXXXXXXXXX";
 
     private static final String REGION="us-east-1";
     

@@ -1,9 +1,10 @@
 package br.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,12 @@ public class DocumentoResource {
 	@GetMapping("/{cnpj}")
 	public ResponseEntity<?> documentos(@PathVariable String cnpj) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.buscarDocumento(cnpj));
+	}
+	
+	@GetMapping("download/{cnpj}/{keyName}")
+	public ResponseEntity<InputStreamResource> dowload(@PathVariable String keyName, @PathVariable String cnpj) {
+		return ResponseEntity.status(HttpStatus.OK).contentType(org.springframework.http.MediaType.IMAGE_JPEG).cacheControl(CacheControl.noCache())
+	            .header("Content-Disposition", "attachment; filename=" + keyName).body(service.download(cnpj, keyName));
 	}
 
 	@PostMapping
